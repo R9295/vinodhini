@@ -12,6 +12,7 @@ from time import gmtime,strftime
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from datetime import *
 import datetime
+import base64
 
 # id_generator
 def key_gen(size=10, chars=string.ascii_uppercase + string.digits):
@@ -45,17 +46,23 @@ def home():
 def add_note():
 
 	if request.method == 'POST':
-		due_date = request.form['start_date']
-		due_year = start_date[0:4]
-		due_month = start_date[5:7]
-		due_day = start_date[8:10]
-		due_date= start_day+'/'+start_month+'/'+start_year
+		#data = request.json['data']
+		#response = {}
+		#response['response'] = data
+		#response = json.dumps(response)
+		#return response
+
+		due_date = request.form['due_date']
+		due_year = due_date[0:4]
+		due_month = due_date[5:7]
+		due_day = due_date[8:10]
+		due_date= due_day+'/'+due_month+'/'+due_year
 
 		data = {
-		'title': request.form['title'],
-		'note': request.form['note'],
-		'due': request.form['due'],
+		'img' : request.json['img'],
+		'title': request.json['title'],
 		'status':'incomplete',
+		'due': due_date,
 		'when_uploaded':strftime("%a, %d %b %Y", gmtime())
 		}
 	return render_template('add_note.html')
@@ -93,4 +100,4 @@ def delete_note(id):
 
 if __name__ == "__main__":
 	configure_uploads(app, photos)	
-	app.run(debug=True)
+	app.run(debug=True,host='0.0.0.0',port=5000)
