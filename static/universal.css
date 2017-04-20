@@ -1,0 +1,13 @@
+.custom_button_black{
+	color:black;
+	background-color: white;
+	border-color: black;
+}
+
+.raleway{
+	font-family: "Raleway",sans-serif;
+}
+
+.error_text{
+	color: red;font-family: 'Raleway',sans-serif;
+}

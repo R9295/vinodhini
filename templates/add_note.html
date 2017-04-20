@@ -12,7 +12,8 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
     <script src="{{url_for('static',filename='atrament.min.js') }}" crossorigin="anonymous"></script>
     <link  rel="stylesheet"  href="{{url_for('static',filename='add_note.css') }}">
-    <link  rel="stylesheet"  href="{{url_for('static',filename='universal.css') }}">
+     <link  rel="stylesheet"  href="{{url_for('static',filename='universal.css') }}"> 
+
   </head>
   <body>
   <h1 class="raleway" align="center"> Add Note</h1>
@@ -55,9 +56,11 @@ var pad = atrament('#drawing_pad', screen.width-1, screen.height/2, 'black');
 
   $("#eraser").on('click', function(){
     pad.color = '#fff'
+    pad.weight = 20
   })
   $("#draw").on('click', function(){
     pad.color = 'black';
+    pad.weight = 3
   })
 
     $("#submit").on('click', function(){
