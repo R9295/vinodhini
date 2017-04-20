@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
-    <script src="../static/atrament.min.js" crossorigin="anonymous"></script>
+    <script src="{{url_for('static',filename='atrament.min.js') }}" crossorigin="anonymous"></script>
   </head>
   <body>
   <h1 style="font-family: 'Raleway', sans-serif;" align="center"> Add Note</h1>
@@ -20,15 +20,19 @@
   Title
   <input type="text" id="title" class="form-control">
   Due Date
-  <input type="date" id="title" class="form-control">
+  <input type="date" id="date" class="form-control">
 
   <canvas id="drawing_pad" width="500px" height="500px">
-  <h3 style="color: red;font-family: 'Raleway',sans-serif;" id="error"></h3>
  
   </form>
   </div>
   <div align="center">
+   <h3 style="color: red;font-family: 'Raleway',sans-serif;" id="error"></h3>
+ 
+ 
   <button class="btn btn-md" style="color:black;background-color: white;border-color: black;" id="submit">Submit</button>
+  <br><br><br>
+   <div id="callback"></div>
      </div>
 
 
@@ -59,9 +63,12 @@ var pad = atrament('#drawing_pad', 500, 500, 'orange');
   ({
     'img': img,
     'title':$("#title").val(),
-    'due_date' : $("#title").val()
+    'due_date' : $("#date").val()
   }),
   success: function (data) {
+    if (data.response == 'success'){
+      $("#callback").html('<h3 style="color: green;font-family: "Raleway",sans-serif;" id="success">Note Created! Click the button below to view it</h3>'+'<a href="/note/'+data.url+'"><button class="btn btn-md"style="color:black;background-color: white;border-color: black;">View Note</button></a>')
+    }
 
 
     }

@@ -52,7 +52,7 @@ def add_note():
 		#response = json.dumps(response)
 		#return response
 
-		due_date = request.form['due_date']
+		due_date = request.json['due_date']
 		due_year = due_date[0:4]
 		due_month = due_date[5:7]
 		due_day = due_date[8:10]
@@ -65,6 +65,17 @@ def add_note():
 		'due': due_date,
 		'when_uploaded':strftime("%a, %d %b %Y", gmtime())
 		}
+		db.notes.insert_one(data)
+		
+		note = db.notes.find_one({'title':data['title']})
+		url = '%s'%(note['_id'])
+		response = {}
+		response['response'] = 'success'
+		response['url'] = url
+		response = json.dumps(response)
+		return response
+		
+
 	return render_template('add_note.html')
 
 
@@ -72,7 +83,8 @@ def add_note():
 #View Notes
 @app.route('/view_notes', methods=['GET'])
 def view_notes():
-	return render_template('view_notes.html')
+	notes = db.notes.find()
+	return render_template('view_notes.html',notes=notes)
 
 
 #View Individual Note
