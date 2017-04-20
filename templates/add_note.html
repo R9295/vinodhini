@@ -6,21 +6,21 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://cdn.rawgit.com/konvajs/konva/1.5.0/konva.min.js"></script>
+   
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
     <script src="{{url_for('static',filename='atrament.min.js') }}" crossorigin="anonymous"></script>
+    <link  rel="stylesheet"  href="{{url_for('static',filename='add_note.css') }}">
+    <link  rel="stylesheet"  href="{{url_for('static',filename='universal.css') }}">
   </head>
   <body>
-  <h1 style="font-family: 'Raleway', sans-serif;" align="center"> Add Note</h1>
+  <h1 class="raleway" align="center"> Add Note</h1>
   <br><br>
 <div class="container" >
   <form class="form-control">
   Title
   <input type="text" id="title" class="form-control">
-  Due Date
-  <input type="date" id="date" class="form-control">
 
   <canvas id="drawing_pad" width="500px" height="500px">
  
@@ -30,7 +30,7 @@
    <h3 style="color: red;font-family: 'Raleway',sans-serif;" id="error"></h3>
  
  
-  <button class="btn btn-md" style="color:black;background-color: white;border-color: black;" id="submit">Submit</button>
+  <button class="btn btn-md custom_button_black"  id="submit">Submit</button>
   <br><br><br>
    <div id="callback"></div>
      </div>
@@ -67,7 +67,7 @@ var pad = atrament('#drawing_pad', 500, 500, 'orange');
   }),
   success: function (data) {
     if (data.response == 'success'){
-      $("#callback").html('<h3 style="color: green;font-family: "Raleway",sans-serif;" id="success">Note Created! Click the button below to view it</h3>'+'<a href="/note/'+data.url+'"><button class="btn btn-md"style="color:black;background-color: white;border-color: black;">View Note</button></a>')
+      $("#callback").html('<h3 style="color: green;" class="raleway" id="success">Note Created! Click the button below to view it</h3>'+'<a href="/note/'+data.url+'"><button class="btn btn-md custom_button_black">View Note</button></a>')
     }
 
 

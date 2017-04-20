@@ -46,23 +46,10 @@ def home():
 def add_note():
 
 	if request.method == 'POST':
-		#data = request.json['data']
-		#response = {}
-		#response['response'] = data
-		#response = json.dumps(response)
-		#return response
-
-		due_date = request.json['due_date']
-		due_year = due_date[0:4]
-		due_month = due_date[5:7]
-		due_day = due_date[8:10]
-		due_date= due_day+'/'+due_month+'/'+due_year
-
 		data = {
 		'img' : request.json['img'],
 		'title': request.json['title'],
 		'status':'incomplete',
-		'due': due_date,
 		'when_uploaded':strftime("%a, %d %b %Y", gmtime())
 		}
 		db.notes.insert_one(data)
@@ -90,7 +77,15 @@ def view_notes():
 #View Individual Note
 @app.route('/note/<id>', methods=['GET','POST'])
 def view_inidividual_note(id):
-	return render_template('individual_note.html')
+	note = db.notes.find_one({'_id':ObjectId(id)})
+	if request.method == 'POST':
+		note['status'] = 'complete'
+		db.notes.save(note)
+		response = {}
+		response['response'] = 'success'
+		response = json.dumps(response)
+		return response
+	return render_template('individual_note.html', note=note)
 
 #Search
 @app.route('/search', methods=['GET','POST'])
