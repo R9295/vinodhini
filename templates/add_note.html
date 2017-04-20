@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"  crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
     <script src="{{url_for('static',filename='atrament.min.js') }}" crossorigin="anonymous"></script>
     <link  rel="stylesheet"  href="{{url_for('static',filename='add_note.css') }}">
@@ -17,20 +17,23 @@
   <body>
   <h1 class="raleway" align="center"> Add Note</h1>
   <br><br>
-<div class="container" >
-  <form class="form-control">
+
   Title
   <input type="text" id="title" class="form-control">
-
-  <canvas id="drawing_pad" width="500px" height="500px">
- 
-  </form>
+  Draw Here
+  <div id="border">
+  <canvas id="drawing_pad">
   </div>
+
   <div align="center">
-   <h3 style="color: red;font-family: 'Raleway',sans-serif;" id="error"></h3>
- 
- 
-  <button class="btn btn-md custom_button_black"  id="submit">Submit</button>
+   <h3 class="error_text" id="error"></h3>
+    <button class="btn btn-md custom_button_black" id="clear">Clear</button>
+    <button class="btn btn-md custom_button_black" id="eraser">Eraser</button>
+    <button class="btn btn-md custom_button_black" id="draw">Draw</button>
+
+    <br><br>
+     <button class="btn btn-md custom_button_black"  id="submit">Submit</button>
+  
   <br><br><br>
    <div id="callback"></div>
      </div>
@@ -38,7 +41,24 @@
 
   <script>
 
-var pad = atrament('#drawing_pad', 500, 500, 'orange');
+
+var pad = atrament('#drawing_pad', screen.width-1, screen.height/2, 'black');
+  
+    $("#clear").on('click',function(){
+    if (confirm("Are you sure you want to clear drawing pad?") == true){
+        pad.clear();    
+    }
+    else{
+      x = 'asd'
+    }
+  });
+
+  $("#eraser").on('click', function(){
+    pad.color = '#fff'
+  })
+  $("#draw").on('click', function(){
+    pad.color = 'black';
+  })
 
     $("#submit").on('click', function(){
 
