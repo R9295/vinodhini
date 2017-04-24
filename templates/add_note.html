@@ -19,9 +19,11 @@
   <h1 class="raleway" align="center"> Add Note</h1>
   <br><br>
 
-  Title
+  <h4 class="raleway" align="center">Title</h4>
+  <div class=" col-sm-3" align="center">
   <input type="text" id="title" class="form-control">
-  Draw Here
+</div>
+  <h4 class="raleway" align="center">Draw Here</h4>
   <div id="border">
   <canvas id="drawing_pad">
   </div>
@@ -33,7 +35,16 @@
     <button class="btn btn-md custom_button_black" id="draw">Draw</button>
 
     <br><br>
-     <button class="btn btn-md custom_button_black"  id="submit">Submit</button>
+   <h4 class="raleway" align="center"> Text(Optional)</h4>
+   <div class=" col-sm-3">
+  <textarea id="text" class="form-control" rows="3"></textarea> <br>
+</div>
+  <h4 class="raleway" align="center">Image(Optional)</h4>
+<div align="center">
+  <input type="file" id="img">
+  </div>
+  <br><br><br><br>
+     <button class="btn btn-md custom_button_black"  id="submit" align="center">Submit</button>
   
   <br><br><br>
    <div id="callback"></div>
@@ -42,8 +53,23 @@
 <script src="//cdn.jsdelivr.net/pouchdb/6.2.0/pouchdb.min.js"></script>
 
   <script>
+  
+var handleFileSelect = function(evt) {
+    var files = evt.target.files;
+    var file = files[0];
 
+    if (files && file) {
+        var reader = new FileReader();
 
+        reader.onload = function(readerEvt) {
+            var binaryString = readerEvt.target.result;
+            console.log(binaryString)
+        };
+
+        reader.readAsBinaryString(file);
+    }
+};
+document.getElementById('img').addEventListener('change', handleFileSelect, false);
 var pad = atrament('#drawing_pad', screen.width-1, screen.height/2, 'black');
   
     $("#clear").on('click',function(){
@@ -76,7 +102,8 @@ var pad = atrament('#drawing_pad', screen.width-1, screen.height/2, 'black');
       } 
 
       else{
-
+        
+/*
 
   $.ajax({
   type: "POST",
@@ -87,7 +114,9 @@ var pad = atrament('#drawing_pad', screen.width-1, screen.height/2, 'black');
   ({
     'img': img,
     'title':$("#title").val(),
-    'due_date' : $("#date").val()
+    'due_date' : $("#date").val(),
+    'img' : ,
+    'text' : $("#text").val()
   }),
   success: function (data) {
     if (data.response == 'success'){
@@ -98,6 +127,7 @@ var pad = atrament('#drawing_pad', screen.width-1, screen.height/2, 'black');
     }
 
   })
+  */
 }
   
     })

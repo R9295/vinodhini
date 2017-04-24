@@ -36,9 +36,37 @@ app.config['UPLOADED_PHOTOS_DEST'] = 'static/img'
 
 
 #Home
-app.route('/')
+@app.route('/',methods=['GET','POST'])
 def home():
+	if db.code.find().count() == 0:
+		return redirect('/code')
+	if request.method == 'POST':
+		response = {}
+		password = db.code.find_one()
+		try: 
+			ph.verify(password['code'],request.json['code'])
+			response['response'] = 'success'
+			response = json.dumps(response)
+			return response 
+		except:
+			response['response'] = 'failure'
+			response = json.dumps(response)
+			return response 
+
 	return render_template('home.html')
+
+
+
+@app.route('/code',methods=['GET','POST'])
+def add_code():
+	if request.method == 'POST':
+		data = {
+		'code':ph.hash(request.form['code'])
+		}
+		 
+		db.code.insert_one(data)
+		return redirect('/')
+	return render_template('code.html')
 
 
 #Add Note
@@ -47,10 +75,12 @@ def add_note():
 
 	if request.method == 'POST':
 		data = {
-		'img' : request.json['img'],
+		'note' : request.json['note'],
 		'title': request.json['title'],
 		'status':'incomplete',
-		'when_uploaded':strftime("%a, %d %b %Y", gmtime())
+		'when_uploaded':strftime("%a, %d %b %Y", gmtime()),
+		'text': request.json['text'],
+		'img': request.json['img']
 		}
 		db.notes.insert_one(data)
 		
@@ -70,6 +100,9 @@ def add_note():
 #View Notes
 @app.route('/view_notes', methods=['GET'])
 def view_notes():
+	status = request.cookies.get('logged')
+	if status != 'true':
+		return redirect('/')
 	notes = db.notes.find()
 	return render_template('view_notes.html',notes=notes)
 
@@ -105,5 +138,6 @@ def delete_note(id):
 
 
 
-if __name__ == "__main__":	
-	app.run(host='0.0.0.0')
+if __name__ == "__main__":
+	configure_uploads(app, photos)	
+	app.run(debug=True,host='0.0.0.0',port=5000)
