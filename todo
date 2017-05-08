@@ -1,1 +1,4 @@
 Fix Add Note Layout. Calculate screen sizes, and adjust accordingly, mobile oriented. 
+Fix post as it only posts when img(optional) there 
+
+Include 'Save Offline'

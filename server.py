@@ -38,6 +38,7 @@ app.config['UPLOADED_PHOTOS_DEST'] = 'static/img'
 #Home
 @app.route('/',methods=['GET','POST'])
 def home():
+	db.active.delete_many({})
 	if db.code.find().count() == 0:
 		return redirect('/code')
 	if request.method == 'POST':
@@ -45,7 +46,13 @@ def home():
 		password = db.code.find_one()
 		try: 
 			ph.verify(password['code'],request.json['code'])
+			active_user = {
+			'code': key_gen()
+			}
 			response['response'] = 'success'
+			response['code'] = active_user['code']
+			db.active.insert_one(active_user)
+
 			response = json.dumps(response)
 			return response 
 		except:
@@ -72,15 +79,19 @@ def add_code():
 #Add Note
 @app.route('/add_note', methods=['GET','POST'])
 def add_note():
-
+	status = request.cookies.get('logged')
+	status = db.active.find({'code':status}).count()
+	if status == 0:
+		return redirect('/')
 	if request.method == 'POST':
+		
 		data = {
 		'note' : request.json['note'],
 		'title': request.json['title'],
 		'status':'incomplete',
 		'when_uploaded':strftime("%a, %d %b %Y", gmtime()),
 		'text': request.json['text'],
-		'img': request.json['img']
+		'img': request.json['img'],
 		}
 		db.notes.insert_one(data)
 		
@@ -101,15 +112,30 @@ def add_note():
 @app.route('/view_notes', methods=['GET'])
 def view_notes():
 	status = request.cookies.get('logged')
-	if status != 'true':
+	status = db.active.find({'code':status}).count()
+	if status == 0:
 		return redirect('/')
-	notes = db.notes.find()
+	notes = db.notes.find({'status' : 'incomplete'})
+	return render_template('view_notes.html',notes=notes)
+
+#View Notes
+@app.route('/view_notes/finished', methods=['GET'])
+def view_notes_finished():
+	status = request.cookies.get('logged')
+	status = db.active.find({'code':status}).count()
+	if status == 0:
+		return redirect('/')
+	notes = db.notes.find({'status' : 'complete'})
 	return render_template('view_notes.html',notes=notes)
 
 
 #View Individual Note
 @app.route('/note/<id>', methods=['GET','POST'])
 def view_inidividual_note(id):
+	status = request.cookies.get('logged')
+	status = db.active.find({'code':status}).count()
+	if status == 0:
+		return redirect('/')
 	note = db.notes.find_one({'_id':ObjectId(id)})
 	if request.method == 'POST':
 		note['status'] = 'complete'
@@ -131,9 +157,19 @@ def search():
 def delete_note(id):
 	pass
 
+@app.route('/logout')
+def logout():
+	key = request.cookies.get('key')
+	error = None
+	if db.active.find().count() != 0:
+		db.active.delete_many({})
+		resp = make_response(redirect('/'))
+    	resp.set_cookie('logged','',expires=0)
+    	return resp
+
+    	
 
 
-#Email Notifications
 
 
 

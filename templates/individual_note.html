@@ -13,13 +13,16 @@
   </head>
   <body>
    <div class="card">
+   {% if note['img'] != 'None' %}
   <img class="card-img-top" src="{{note['img']}}" alt="Card image cap">
+  {% endif %}
   <div class="card-block">
    
     <ul class="list-group list-group-flush">
     <li class="list-group-item">{{note['title']}}</li>
     <li class="list-group-item" id="status">{{note['status']}}</li>
     <li class="list-group-item">{{note['when_uploaded']}}</li>
+    <li class="list-group-item">{{note['text']}}</li>
   </ul>
   </div>
 </div>
