@@ -5,9 +5,13 @@
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" ></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link  rel="stylesheet"  href="{{url_for('static',filename='universal.css') }}">
     <!-- Bootstrap CSS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/6.2.0/pouchdb.min.js" ></script>
+
+    <script src="../static/db.js" ></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" crossorigin="anonymous">
   </head>
@@ -34,10 +38,16 @@
     </ul>
   </div>
 </nav>
-
+  <script>
+    db.destroy()
+  </script>
   <div class="container">
   <div class="row">
+
     {% for i in notes %}
+    <script>
+      store_note('{{note.when_uploaded}}',"{{note.img}}",'{{note.text}}','{{note.note}}','{{note.status}}','{{note.title}}','{{note._id}}')
+    </script>
     <a href="/note/{{i['_id']}}">
     <div class="card">
   <img class="card-img-top" src="{{i['note']}}" alt="Card image cap" style="width: 100%;">
@@ -52,7 +62,7 @@
 
 
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
   </body>
