@@ -9,11 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link  rel="stylesheet"  href="{{url_for('static',filename='universal.css') }}">
     <!-- Bootstrap CSS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/6.2.0/pouchdb.min.js" ></script>
-
-    <script src="../static/db.js" ></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" crossorigin="anonymous">
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/pouchdb/6.2.0/pouchdb.min.js" ></script>
+        <script src="../static/db.js" ></script>
   </head>
   <body>
   <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
@@ -38,15 +38,12 @@
     </ul>
   </div>
 </nav>
-  <script>
-    db.destroy()
-  </script>
   <div class="container">
   <div class="row">
 
     {% for i in notes %}
     <script>
-      store_note('{{note.when_uploaded}}',"{{note.img}}",'{{note.text}}','{{note.note}}','{{note.status}}','{{note.title}}','{{note._id}}')
+          store_note('{{i.when_uploaded}}','{{i.img}}','{{i.text}}','{{i.note}}','{{i.status}}','{{i.title}}','{{i._id}}')
     </script>
     <a href="/note/{{i['_id']}}">
     <div class="card">
@@ -59,11 +56,19 @@
   {% endfor %}
 </div>
 </div>
-
+<button onclick="asd()">asdasdasd</button>
 
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="../static/upup.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" ></script>
+
+   <script>
+    UpUp.start({
+      'content': '<html><body><h1>Top Hotels in Rome</h1><p>Villa Domus</p><p>Hotel Trivelli</p></body></html>',
+      'service-worker-url':'../static/upup.sw.min.js'
+    });
+  </script>
   </body>
 </html>

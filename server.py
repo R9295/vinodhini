@@ -126,7 +126,7 @@ def view_notes_finished():
 	if status == 0:
 		return redirect('/')
 	notes = db.notes.find({'status' : 'complete'})
-	return render_template('view_notes.html',notes=notes)
+	return render_template('view_finished_notes.html',notes=notes)
 
 
 #View Individual Note
@@ -168,7 +168,6 @@ def logout():
     	return resp
 
     	
-
 
 
 
