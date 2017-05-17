@@ -28,10 +28,6 @@ db = client.notes
 app = Flask(__name__)
 
 
-#Configuring where photos should be uploaded.
-photos = UploadSet('photos', IMAGES)
-app.config['UPLOADED_PHOTOS_DEST'] = 'static/img'
-
 
 #Home
 @app.route('/',methods=['GET','POST'])
@@ -172,5 +168,4 @@ def logout():
 
 
 if __name__ == "__main__":
-	configure_uploads(app, photos)	
 	app.run(debug=True,host='0.0.0.0',port=5000)
