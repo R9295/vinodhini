@@ -2,14 +2,12 @@ from flask import Flask,render_template,redirect,request,make_response,redirect,
 from pymongo import MongoClient
 from argon2 import PasswordHasher
 import json
-from bcrypt import hashpw,gensalt
 #to query collections by their Id
 from bson.objectid import ObjectId
 from time import gmtime, strftime
 import string 
 import random
 from time import gmtime,strftime
-from flask_uploads import UploadSet, configure_uploads, IMAGES
 from datetime import *
 import datetime
 import base64
