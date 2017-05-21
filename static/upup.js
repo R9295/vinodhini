@@ -125,7 +125,7 @@
 
   // Settings live here, and these are their defaults
   var _settings = {
-    'service-worker-url': '../templates/upup.sw.js'
+    'service-worker-url': '../static/upup.sw.js'
   };
 
   var _debugState = false;
@@ -156,7 +156,7 @@
       this.addSettings(settings);
 
       // register the service worker
-      _serviceWorker.register(_settings['service-worker-url'], {scope: '/'}).then(function(registration) {
+      _serviceWorker.register(_settings['service-worker-url'], {scope: '/static/'}).then(function(registration) {
         // Registration was successful
         if (_debugState) {
           console.log('Service worker registration successful with scope: %c'+registration.scope, _debugStyle);
