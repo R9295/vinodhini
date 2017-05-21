@@ -125,7 +125,7 @@
 
   // Settings live here, and these are their defaults
   var _settings = {
-    'service-worker-url': '../upup.sw.js'
+    'service-worker-url': '../templates/upup.sw.js'
   };
 
   var _debugState = false;
