@@ -45,7 +45,7 @@
         //  store_note()
     </script>
     <a href="#">
-    <div class="card" onclick="show_modal('{{i.when_uploaded}}','{{i.img}}','{{i.text}}','{{i.note}}','{{i.status}}','{{i.title}}','{{i._id}}')">
+    <div class="card" onclick="show_modal('{{i._id}}')">
   <img class="card-img-top" src="{{i['note']}}" alt="Card image cap" style="width: 100%;">
   <div class="card-block">
     <p class="card-text">{{i['title']}}</p>
@@ -83,24 +83,38 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" ></script>
 
    <script>
-  function show_modal(when_uploaded,img,text,note,status,title,id){
-      $("#modal_title").text(title);
-      $(".modal-body").html('<div align="center"><img style="width:100%;"  src="'+note+'"></img>'+
+  function show_modal(id){
+          data = {}
+          data['id'] = id
+        $.ajax({
+    type: "POST",
+    contentType: "application/json; charset=utf-8",
+    url: "/get_individual",
+    dataType: "json",
+    data: JSON.stringify({'id':id}),
+    success: function (data) {
+      if (data.response == 'success'){
+      $("#modal_title").text(data.title);
+      $(".modal-body").html('<div align="center"><img style="width:100%;"  src="'+data.note+'"></img>'+
         '<br>'+
         '<br>'+
         '<br>'+
-        'Text:  '+text+'<br>'+
-        'When Posted:  '+when_uploaded+'<br>'+
-        'Status:  '+status+'<br>'+
+        'Text:  '+data.text+'<br>'+
+        'When Posted:  '+data.when_uploaded+'<br>'+
+        'Status:  '+data.status+'<br>'+
         '<br>'+
         '<br>'+
         '<br>'+
-        '<img style="width:100%;"  src="'+img+'"></img>'+
+        '<img style="width:100%;"  src="'+data.img+'"></img>'+
         '<h3 id="callback_finish" class="success_text"></h3>'+
         '</div>');
       $(".finish").attr('id',id);
       $("#modal").modal('show');
-    }
-  </script>
+      }
+  }
+
+      });
+      
+    }  </script>
   </body>
 </html>

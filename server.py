@@ -99,6 +99,32 @@ def add_note():
 
 	return render_template('add_note.html')
 
+@app.route('/get_individual', methods=['GET','POST'])
+def get_individual():
+	status = request.cookies.get('logged')
+	status = db.active.find({'code':status}).count()
+	if status == 0:
+		return redirect('/')
+	if request.method == 'POST':
+		note = db.notes.find({'_id':ObjectId(request.json['id'])}).count()
+		print note
+		if note == 0:
+			response = {}
+			response['response'] = 'failure'
+			response = json.dumps(response)
+			return response
+		if note == 1:
+			note = db.notes.find_one({'_id':ObjectId(request.json['id'])})
+			response = {}
+			response['response'] = 'success'
+			response['note'] = note['note']
+			response['title'] = note['title']
+			response['status'] = note['status']
+			response['when_uploaded'] = note['when_uploaded']
+			response['text'] = note['text']
+			response['img'] = note['img']
+			response = json.dumps(response)
+			return response
 
 
 #View Notes
