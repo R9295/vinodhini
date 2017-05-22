@@ -28,7 +28,6 @@ db = client.notes
 app = Flask(__name__)
 
 
-
 #Home
 @app.route('/',methods=['GET','POST'])
 def home():
@@ -123,33 +122,28 @@ def view_notes_finished():
 	return render_template('view_finished_notes.html',notes=notes)
 
 
-#View Individual Note
-@app.route('/note/<id>', methods=['GET','POST'])
-def view_inidividual_note(id):
-	status = request.cookies.get('logged')
-	status = db.active.find({'code':status}).count()
-	if status == 0:
-		return redirect('/')
-	note = db.notes.find_one({'_id':ObjectId(id)})
-	if request.method == 'POST':
-		note['status'] = 'complete'
-		db.notes.save(note)
-		response = {}
-		response['response'] = 'success'
-		response = json.dumps(response)
-		return response
-	return render_template('individual_note.html', note=note)
 
-#Search
-@app.route('/search', methods=['GET','POST'])
-def search():
-	pass
-
+@app.route('/finish_note', methods=['POST'])
+def finish_one():
+	note = db.notes.find_one({'_id':ObjectId(request.json['id'])})
+	note['status'] = 'complete'
+	db.notes.save(note)
+	response = {}
+	response['response'] = 'success'
+	response = json.dumps(response)
+	return response
 
 #Remove Note
 @app.route('/delete_note/<id>', methods=['GET','POST'])
 def delete_note(id):
-	pass
+	note = db.notes.find_one({'_id':ObjectId(request.json['id'])})
+	print note
+	note['status'] = 'complete'
+	db.notes.save(note)
+	response = {}
+	response['response'] = 'success'
+	response = json.dumps(response)
+	return response
 
 @app.route('/logout')
 def logout():
@@ -163,9 +157,5 @@ def logout():
 
     	
 
-
-
-
-
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run(debug=True,host='0.0.0.0')

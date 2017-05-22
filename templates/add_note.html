@@ -17,28 +17,33 @@
 
   </head>
   <body>
-   <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+   
+
+  <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" href="#">Add Note</a>
-  <div class="collapse navbar-collapse" id="navbarNav">
+  <a class="navbar-brand" href="#">Vinodhini</a>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNav" align="right">
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="/view_notes">Home <span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a class="nav-link" href="/add_note">ADD NOTE</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/add_note"><i class="ion-compose" style="font-size: 25px;padding-right: 3px;"></i>  Add Note</a>
-      </li>
-        <li class="nav-item">
-        <a class="nav-link" href="/view_notes/finished"><i class="ion-android-done-all" style="font-size: 25px;padding-right: 3px;"></i>  View Finished Notes</a>
+        <a class="nav-link" href="/view_notes">VIEW NOTES</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/logout"><i class="ion-power" style="font-size: 25px;padding-right: 3px;"></i>Logout</a>
+        <a class="nav-link" href="/view_notes/finished">VIEW FINISHED NOTES</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">LOGOUT</a>
       </li>
     </ul>
   </div>
 </nav>
+
+
+
 <br>
   <h1 class="raleway" align="center"> Add Note</h1>
   <br><br>
@@ -82,8 +87,8 @@
   <br><br><br><br>
      <button class="btn btn-md custom_button_black"  id="submit" align="center">Submit</button>
   
-  <br><br><br>
-   <div id="callback"></div>
+  <br>
+  <div id="callback"></div>
      </div>
 
 
@@ -162,7 +167,7 @@ function post_data(){
   ),
   success: function (data) {
     if (data.response == 'success'){
-      $("#callback").html('<h3 style="color: green;" class="raleway" id="success">Note Created! Click the button below to view it</h3>'+'<a href="/note/'+data.url+'"><button class="btn btn-md custom_button_black">View Note</button></a>')
+      $("#callback").html('<h3 style="color: green;" class="raleway" id="success">Note Created</h3>')
     }
 
 
@@ -201,7 +206,7 @@ function post_data(){
   ),
   success: function (data) {
     if (data.response == 'success'){
-      $("#callback").html('<h3 style="color: green;" class="raleway" id="success">Note Created! Click the button below to view it</h3>'+'<a href="/note/'+data.url+'"><button class="btn btn-md custom_button_black">View Note</button></a>')
+      $("#callback").html('<h3 style="color: green;" class="raleway" id="success">Note Created!</h3>')
     }
 
 

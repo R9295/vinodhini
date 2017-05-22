@@ -11,3 +11,12 @@
 .error_text{
 	color: red;font-family: 'Raleway',sans-serif;
 }
+
+.navbar{
+	background-color: transparent !important;
+	font-family: "Raleway",sans-serif;
+
+}
+.nav-link{
+	color: black !important;
+	}
