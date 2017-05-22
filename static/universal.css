@@ -1,3 +1,10 @@
+input,select,textarea{
+	background-color: transparent !important;
+	color:white !important;
+	border-color:white !important;
+}
+
+
 .custom_button_black{
 	color:white;
 	background-color: transparent !important;

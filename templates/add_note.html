@@ -16,27 +16,27 @@
      <link  rel="stylesheet"  href="{{url_for('static',filename='universal.css') }}"> 
 
   </head>
-  <body>
+  <body class="bg">
    
 
   <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler navbar-toggler-right bg_white" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" href="#">Vinodhini</a>
+  <a class="navbar-brand white" href="#">Vinodhini</a>
   <div class="collapse navbar-collapse justify-content-end" id="navbarNav" align="right">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="/add_note">ADD NOTE</a>
+        <a class="nav-link white" href="/add_note">ADD NOTE</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/view_notes">VIEW NOTES</a>
+        <a class="nav-link white" href="/view_notes">VIEW NOTES</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/view_notes/finished">VIEW FINISHED NOTES</a>
+        <a class="nav-link white" href="/view_notes/finished">VIEW FINISHED NOTES</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/logout">LOGOUT</a>
+        <a class="nav-link white" href="/logout">LOGOUT</a>
       </li>
     </ul>
   </div>
@@ -45,10 +45,10 @@
 
 
 <br>
-  <h1 class="raleway" align="center"> Add Note</h1>
+  <h1 class="raleway white" align="center"> Add Note</h1>
   <br><br>
 
-  <h4 class="raleway" align="center">Title</h4>
+  <h4 class="raleway white" align="center">Title</h4>
   <div class=" col-sm-3" align="center">
   <input type="text" id="title" class="form-control">
 </div>
@@ -56,7 +56,7 @@
  
 
 
-  <h4 class="raleway" align="center">Draw Here</h4>
+  <h4 class="raleway white" align="center">Draw Here</h4>
   <div id="border">
   <canvas id="drawing_pad">
   </div>
@@ -69,15 +69,15 @@
 
 
     <br><br>
-   <h4 class="raleway" align="center"> Text(Optional)</h4>
+   <h4 class="raleway white" align="center"> Text(Optional)</h4>
    <div class=" col-sm-3">
   <textarea id="text" class="form-control" rows="3"></textarea> <br>
 </div>
 
 
-  <h4 class="raleway" align="center">Image(Optional)</h4>
+  <h4 class="raleway white" align="center">Image(Optional)</h4>
 <div align="center">
-  <input type="file" id="optional_img">
+  <input type="file" id="optional_img" style="padding-left: 10px;">
   </div>
 
 <div id="img_base">
@@ -85,10 +85,11 @@
 </div>
 
   <br><br><br><br>
+   <div id="callback"></div>
      <button class="btn btn-md custom_button_black"  id="submit" align="center">Submit</button>
   
   <br>
-  <div id="callback"></div>
+ 
      </div>
 
 

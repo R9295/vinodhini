@@ -7,30 +7,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link  rel="stylesheet"  href="{{url_for('static',filename='universal.css') }}">
+<link  rel="stylesheet"  href="{{url_for('static',filename='view_notes.css') }}">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
   </head>
-  <body>
+  <body class="bg">
   
 
   <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+  <button class="navbar-toggler navbar-toggler-right bg_white" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon "></span>
   </button>
-  <a class="navbar-brand" href="#">Vinodhini</a>
+  <a class="navbar-brand white" href="#">Vinodhini</a>
   <div class="collapse navbar-collapse justify-content-end" id="navbarNav" align="right">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="/add_note">ADD NOTE</a>
+        <a class="nav-link white" href="/add_note">ADD NOTE</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/view_notes">VIEW NOTES</a>
+        <a class="nav-link white" href="/view_notes">VIEW NOTES</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/view_notes/finished">VIEW FINISHED NOTES</a>
+        <a class="nav-link white" href="/view_notes/finished">VIEW FINISHED NOTES</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/logout">LOGOUT</a>
+        <a class="nav-link white" href="/logout">LOGOUT</a>
       </li>
     </ul>
   </div>
@@ -38,23 +39,17 @@
 
 
   <div class="container">
-  <div class="row">
-
     {% for i in notes %}
-    <script>
-        //  store_note()
-    </script>
     <a href="#">
-    <div class="card" onclick="show_modal('{{i._id}}')">
-  <img class="card-img-top" src="{{i['note']}}" alt="Card image cap" style="width: 100%;">
+    <div class="card" onclick="show_modal('{{i._id}}')" style="max-width: 100% !important;">
   <div class="card-block">
-    <p class="card-text">{{i['title']}}</p>
+  <img src="{{i['note']}}" style="max-width: 100% !important;"><br><br>
+    {{i['title']}}
   </div>
 </div>
 </a>
 
   {% endfor %}
-</div>
 </div>
 
 <!-- Modal -->
