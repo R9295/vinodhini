@@ -1,7 +1,7 @@
 .custom_button_black{
-	color:black;
-	background-color: white;
-	border-color: black;
+	color:white;
+	background-color: transparent !important;
+	border-color: white !important;
 }
 
 .raleway{
@@ -20,3 +20,9 @@
 .nav-link{
 	color: black !important;
 	}
+.white{
+	color:white !important;
+}
+.bg_white{
+	background-color:white !important;
+}

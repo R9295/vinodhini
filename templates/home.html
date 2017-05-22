@@ -8,17 +8,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
      <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link  rel="stylesheet"  href="{{url_for('static',filename='universal.css') }}"> 
+    <link  rel="stylesheet"  href="{{url_for('static',filename='home.css') }}"> 
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
   </head>
-  <body>
+  <body class="raleway bg">
   <div class="container">
+  <br><br>
+   <h1 align="center" class="white">Hello Vinodhini!</h1>
+   <br>
    
-    Enter Password
-    <input type="password" name="code" class="form-control" id="code">
+
+
+   <div class="card" style="width: 20rem;" align="center" style="background-color: transparent !important;">
+  <div class="card-block">
+    <h4 class="card-title" align="center" id="date"></h4>
+    <p class="card-text"></p>
+  </div>
+</div>
+   
+
+    <br><br>
+    <h3 class="white">Enter Password</h3>
+    <input type="password" name="code" class="form-control" style="background-color: transparent !important;" id="code">
     <div class="error_text" id="error"></div><br><br>
-    <button class="btn btn-md " style="color:black;background-color: white;border-color: black;" id="submit">Submit</button>
+    <button class="btn btn-md custom_button_black" id="submit">Submit</button>
       
     
 </div>
@@ -26,11 +41,39 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" ></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.1.0/jquery.simpleWeather.min.js"></script>
     <script>
 
-      
+    $(document).ready(function() {
+      date = moment().format('Do');
+      day = moment().format('dddd');
+      month = moment().format('MMMM');
+      year = moment().format('YYYY');
+      data = day+' '+date+' '+month+' '+year
+      console.log(data)
+      $("#date").text(data)
+    
+  $.simpleWeather({
+    location: 'Auroville, India',
+    woeid: '',
+    unit: 'c',
+    success: function(weather) {
+    $(".card-text").html("<p align='center'> It's about "+weather.temp+"&deg;"+"C  right now"+
+      '<br>'+
+      " And it is "+weather.currently+"</p>")  
+    
+
+    },
+    error: function(error) {
+      console.log(error)
+    }
+  });
+});
+
+   
       
           $("#submit").on('click', function(){
 

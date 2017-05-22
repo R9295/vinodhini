@@ -149,6 +149,24 @@ def view_notes_finished():
 
 
 
+@app.route('/delete_this', methods=['POST'])
+def delete_this():
+	id = request.json['id']
+	note = db.notes.find({'_id':ObjectId(id)}).count()
+	if note != 1:
+		response = {}
+		response['response'] = 'failure'
+		response = json.dumps(response)
+		return response
+	if note == 1:
+		db.notes.delete_one({'_id':ObjectId(id)})
+		response = {}
+		response['response'] = 'success'
+		response = json.dumps(response)
+		return response
+
+
+
 @app.route('/finish_note', methods=['POST'])
 def finish_one():
 	note = db.notes.find_one({'_id':ObjectId(request.json['id'])})

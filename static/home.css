@@ -1,0 +1,23 @@
+body,html{
+	height: 100%;
+	width: 100%;
+
+}
+
+.form-control{
+	background-color: transparent !important;
+	border-color: white !important;
+}
+.card{
+	background-color: transparent !important;
+	color:white;
+	border-color: white !important;
+}
+
+.bg{
+	background-image: url('bg_3.jpg');
+	height: 100%;
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
