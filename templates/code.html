@@ -1,36 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link  rel="stylesheet"  href="{{url_for('static',filename='universal.css') }}"> 
+    <link  rel="stylesheet"  href="{{url_for('static',filename='code.css') }}"> 
     <title>Code</title>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" >
   </head>
-  <body>
+  <body class="bg">
     <div class="container">
-    <h1 class="raleway" align="center">Hello, Vinodhini!</h1>
-    <br><br><br><br>
-    <h3> All your notes will be password protected, so you need to select a password to lock your notes.</h3>
+    <br><br><br>
+    <h1 class="raleway white" align="center">Hello, Vinodhini!</h1>
     <br><br>
+    <h3 class="raleway white"> All your notes will be password protected, so you need to select a password to lock your notes.</h3>
+    <br>
     <form class="form-control" method="post">
-    Enter Password
+    <h5 class="raleway white;">Enter Password</h5>
     <input type="password" name="code" class="form-control" id="code">
-    Enter Password Again
+     <h5 class="raleway white;">Enter Password Again</h5>
     <input type="password" name="code_two" class="form-control" id="code_two">
     <div class="error_text" id="error"></div><br><br>
-    <button class="btn btn-md " style="color:black;background-color: white;border-color: black;" id="submit">Submit</button>
+    <button class="btn btn-md custom_button_black"  id="submit">Submit</button>
       
     </form>
     </div>
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
     <script>
 
 
