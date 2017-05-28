@@ -91,9 +91,12 @@
 <br><br>
 <h4 class="raleway white" align="center">Tags</h4>
 <select class="custom-select" id="tag_select">
+ 
   {% for i in tags %}
  <option style="color:black" class="raleway">{{i.tag}}</option>
   {% endfor %}
+  <option style="color:black" class="raleway" id="empty_tag"></option>
+ 
 </select>
 <br><br>
 <a href="#" class="white raleway" id="create_tag">Create Tag</a>
@@ -150,6 +153,7 @@
   success: function (data) {
     if (data.response == 'success'){
       $("#callback_tag").html('<h5 style="color: green;" class="raleway" id="success">Tag Created</h5>')
+      $("#empty_tag").text(tag)
     }
 
 
