@@ -17,3 +17,12 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+
+#new_tag{
+	color: black !important;
+	border-color:black !important;
+}
+
+
+

@@ -72,12 +72,12 @@ def add_code():
 #Add Note
 @app.route('/add_note', methods=['GET','POST'])
 def add_note():
+	tags = db.tags.find()
 	status = request.cookies.get('logged')
 	status = db.active.find({'code':status}).count()
 	if status == 0:
 		return redirect('/')
 	if request.method == 'POST':
-		
 		data = {
 		'note' : request.json['note'],
 		'title': request.json['title'],
@@ -85,19 +85,16 @@ def add_note():
 		'when_uploaded':strftime("%a, %d %b %Y", gmtime()),
 		'text': request.json['text'],
 		'img': request.json['img'],
+		'tag':request.json['tag']
 		}
-		db.notes.insert_one(data)
-		
-		note = db.notes.find_one({'title':data['title']})
-		url = '%s'%(note['_id'])
+		db.notes.insert_one(data)		
 		response = {}
 		response['response'] = 'success'
-		response['url'] = url
 		response = json.dumps(response)
 		return response
 		
 
-	return render_template('add_note.html')
+	return render_template('add_note.html',tags=tags)
 
 @app.route('/get_individual', methods=['GET','POST'])
 def get_individual():
@@ -123,29 +120,81 @@ def get_individual():
 			response['when_uploaded'] = note['when_uploaded']
 			response['text'] = note['text']
 			response['img'] = note['img']
+			response['tag'] = note['tag']
 			response = json.dumps(response)
 			return response
 
 
 #View Notes
-@app.route('/view_notes', methods=['GET'])
+@app.route('/view_notes', methods=['GET','POST'])
 def view_notes():
+	filtered_notes = []
 	status = request.cookies.get('logged')
 	status = db.active.find({'code':status}).count()
 	if status == 0:
 		return redirect('/')
 	notes = db.notes.find({'status' : 'incomplete'})
-	return render_template('view_notes.html',notes=notes)
+	tags = db.tags.find()
+	if request.method == 'POST':
+
+		if request.json['tag'] == 'All':
+			notes = db.notes.find({'status':'incomplete'})
+			for i in notes:
+				filtered_notes.append([i['note'],i['title'],str(i['_id'])])
+			response = {}
+			response['response'] = 'success'
+			response['notes'] = filtered_notes
+			response = json.dumps(response)
+			return response
+			
+
+
+		tag = request.json['tag']
+		notes = db.notes.find({'tag':tag,'status':'incomplete'})
+		for i in notes:
+			filtered_notes.append([i['note'],i['title'],str(i['_id'])])
+		response = {}
+		response['response'] = 'success'
+		response['notes'] = filtered_notes
+		response = json.dumps(response)
+		return response
+
+	return render_template('view_notes.html',notes=notes,tags=tags)
 
 #View Notes
-@app.route('/view_notes/finished', methods=['GET'])
+@app.route('/view_notes/finished', methods=['GET','POST'])
 def view_notes_finished():
+	filtered_notes = []
 	status = request.cookies.get('logged')
 	status = db.active.find({'code':status}).count()
 	if status == 0:
 		return redirect('/')
 	notes = db.notes.find({'status' : 'complete'})
-	return render_template('view_finished_notes.html',notes=notes)
+	tags = db.tags.find()
+	if request.method == 'POST':
+
+		if request.json['tag'] == 'All':
+			notes = db.notes.find({'status':'complete'})
+			for i in notes:
+				filtered_notes.append([i['note'],i['title'],str(i['_id'])])
+			response = {}
+			response['response'] = 'success'
+			response['notes'] = filtered_notes
+			response = json.dumps(response)
+			return response
+			
+
+
+		tag = request.json['tag']
+		notes = db.notes.find({'tag':tag,'status':'complete'})
+		for i in notes:
+			filtered_notes.append([i['note'],i['title'],str(i['_id'])])
+		response = {}
+		response['response'] = 'success'
+		response['notes'] = filtered_notes
+		response = json.dumps(response)
+		return response
+	return render_template('view_finished_notes.html',notes=notes,tags=tags)
 
 
 
@@ -184,6 +233,19 @@ def delete_note(id):
 	print note
 	note['status'] = 'complete'
 	db.notes.save(note)
+	response = {}
+	response['response'] = 'success'
+	response = json.dumps(response)
+	return response
+
+
+@app.route('/create_tag', methods=['POST'])
+def create_tag():
+	tag = request.json['tag']
+	data = {
+	'tag':tag
+	}
+	db.tags.insert_one(data)
 	response = {}
 	response['response'] = 'success'
 	response = json.dumps(response)

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-
+  <title>Add Note</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -66,7 +66,16 @@
     <button class="btn btn-md custom_button_black" id="clear">Clear</button>
     <button class="btn btn-md custom_button_black" id="eraser">Eraser</button>
     <button class="btn btn-md custom_button_black" id="draw">Draw</button>
-
+    <br>
+    <br>
+    <select class="custom-select" id= "color" onchange="change_color()">
+ <option style="color:black" class="raleway">black</option>
+ <option style="color:black" class="raleway">orange</option>
+ <option style="color:black" class="raleway">green</option>
+ <option style="color:black" class="raleway">blue</option>
+ <option style="color:black" class="raleway">yellow</option>
+ <option style="color:black" class="raleway">red</option>
+</select>
 
     <br><br>
    <h4 class="raleway white" align="center"> Text(Optional)</h4>
@@ -79,23 +88,80 @@
 <div align="center">
   <input type="file" id="optional_img" style="padding-left: 10px;">
   </div>
-
-<div id="img_base">
-  
-</div>
+<br><br>
+<h4 class="raleway white" align="center">Tags</h4>
+<select class="custom-select" id="tag_select">
+  {% for i in tags %}
+ <option style="color:black" class="raleway">{{i.tag}}</option>
+  {% endfor %}
+</select>
+<br><br>
+<a href="#" class="white raleway" id="create_tag">Create Tag</a>
 
   <br><br><br><br>
    <div id="callback"></div>
      <button class="btn btn-md custom_button_black"  id="submit" align="center">Submit</button>
   
   <br>
- 
+ <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+       
+        <h5 class="modal-title" id="exampleModalLabel">Create Tag</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <h5 class="raleway" align="left">Tag name:</h5>
+        <br>
+       <input type="text" id="new_tag" class="form-control">
+       <br>
+       <div id="callback_tag"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="submit_tag()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
      </div>
-
 
 
   <script>
 
+  function submit_tag(){
+    tag = $("#new_tag").val()
+    data = {}
+    data['tag'] = tag
+      $.ajax({
+  
+  type: "POST",
+  contentType: "application/json; charset=utf-8",
+  url: "/create_tag",
+  dataType: "json",
+  data: JSON.stringify
+  (
+    data
+  ),
+  success: function (data) {
+    if (data.response == 'success'){
+      $("#callback_tag").html('<h5 style="color: green;" class="raleway" id="success">Tag Created</h5>')
+    }
+
+
+    }
+
+  })
+  }
+
+
+  $("#create_tag").on('click', function(){
+    $(".modal").modal('show')
+  })
 
 
   var pad = atrament('#drawing_pad', screen.width-1, screen.height/2, 'black');
@@ -114,13 +180,17 @@
 
 
   $("#eraser").on('click', function(){
-    pad.color = '#fff'
+    pad.mode = 'erase';
     pad.weight = 20
   })
   $("#draw").on('click', function(){
-    pad.color = 'black';
+   pad.mode = 'draw'; 
     pad.weight = 3
   })
+
+    function change_color(){
+    pad.color = $("#color").val()
+  }
 
     $("#submit").on('click', function(){
 
@@ -157,6 +227,7 @@ function post_data(){
   data['text'] = 'None'
   }     
   data['img'] = base_img
+  data['tag'] = $("#tag_select").val()
    $.ajax({
   type: "POST",
   contentType: "application/json; charset=utf-8",
@@ -196,6 +267,7 @@ function post_data(){
   data['text'] = 'None'
   }     
   data['img'] = 'None'
+  data['tag'] = $("#tag_select").val()
    $.ajax({
   type: "POST",
   contentType: "application/json; charset=utf-8",

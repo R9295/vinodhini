@@ -39,8 +39,15 @@
 
 
   <div class="container">
-
-
+  <br><br>
+    <select class="custom-select" onchange="tag()">
+    <option style="color:black" class="raleway">All</option>
+  {% for i in tags %}
+ <option style="color:black" class="raleway">{{i.tag}}</option>
+  {% endfor %}
+</select>
+<br><br>
+  <div id="notes">
     {% for i in notes %}
     <a href="#">
     <div class="card" onclick="show_modal('{{i._id}}')" style="max-width: 100% !important;">
@@ -52,6 +59,7 @@
 </a>
 
   {% endfor %}
+  </div>
 </div>
 
 <!-- Modal -->
@@ -82,6 +90,36 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" ></script>
 
    <script>
+
+    function tag(){
+      data = {}
+      data['tag'] = $(".custom-select").val()
+                  $.ajax({
+    type: "POST",
+    contentType: "application/json; charset=utf-8",
+    url: "/view_notes",
+    dataType: "json",
+    data: JSON.stringify(data),
+    success: function (data) {
+      var response = '';
+      for (i = 0; i < data.notes.length;i++){
+        response = response
+          +'<a href="#">'
+          +"<div class='card' id='"+data.notes[i][2]+"' onclick='show_modal(this.id)' style='max-width: 100% !important;'>"
+          +'<div class="card-block">'
+          +'<img src="'+data.notes[i][0]+'" style="max-width: 100% !important;"><br><br>'
+          + data.notes[i][1]
+          +'</div>'
+          +'</div>'
+          +'</a>'
+      }
+    $("#notes").empty()
+    $("#notes").html(response)
+    }
+
+      });
+
+    }
        function delete_this(id){
     if (confirm('Are you sure you want to delete this note?') == true){
     data = {}
@@ -148,6 +186,7 @@
         'Text:  '+data.text+'<br>'+
         'When Posted:  '+data.when_uploaded+'<br>'+
         'Status:  '+data.status+'<br>'+
+        'Tag:  '+data.tag+'<br>'+
         '<br>'+
         '<br>'+
         '<br>'+
