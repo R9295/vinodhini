@@ -13,11 +13,11 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
     <script src="{{url_for('static',filename='atrament.min.js') }}" crossorigin="anonymous"></script>
     <link  rel="stylesheet"  href="{{url_for('static',filename='add_note.css') }}">
-     <link  rel="stylesheet"  href="{{url_for('static',filename='universal.css') }}"> 
+     <link  rel="stylesheet"  href="{{url_for('static',filename='universal.css') }}">
 
   </head>
   <body class="bg">
-   
+
 
   <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
   <button class="navbar-toggler navbar-toggler-right bg_white" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,7 @@
   <input type="text" id="title" class="form-control">
 </div>
 
- 
+
 
 
   <h4 class="raleway white" align="center">Draw Here</h4>
@@ -91,12 +91,12 @@
 <br><br>
 <h4 class="raleway white" align="center">Tags</h4>
 <select class="custom-select" id="tag_select">
- 
+
   {% for i in tags %}
  <option style="color:black" class="raleway">{{i.tag}}</option>
   {% endfor %}
   <option style="color:black" class="raleway" id="empty_tag"></option>
- 
+
 </select>
 <br><br>
 <a href="#" class="white raleway" id="create_tag">Create Tag</a>
@@ -104,14 +104,14 @@
   <br><br><br><br>
    <div id="callback"></div>
      <button class="btn btn-md custom_button_black"  id="submit" align="center">Submit</button>
-  
+
   <br>
  <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-       
+
         <h5 class="modal-title" id="exampleModalLabel">Create Tag</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -141,7 +141,7 @@
     data = {}
     data['tag'] = tag
       $.ajax({
-  
+
   type: "POST",
   contentType: "application/json; charset=utf-8",
   url: "/create_tag",
@@ -169,10 +169,11 @@
 
 
   var pad = atrament('#drawing_pad', screen.width-1, screen.height/2, 'black');
+  pad.smoothing = false;
   
     $("#clear").on('click',function(){
     if (confirm("Are you sure you want to clear drawing pad?") == true){
-        pad.clear();    
+        pad.clear();
     }
     else{
       x = 'asd'
@@ -188,7 +189,7 @@
     pad.weight = 20
   })
   $("#draw").on('click', function(){
-   pad.mode = 'draw'; 
+   pad.mode = 'draw';
     pad.weight = 3
   })
 
@@ -201,15 +202,15 @@
       var img = pad.toImage();
       if ($("#title").val() == 0){
         $("#error").text('Title is empty');
-      } 
+      }
 
       else if ($("#date").val() == 0){
         $("#error").text('Due date is empty');
-      } 
+      }
 
       else{
 
-function post_data(){ 
+function post_data(){
 
 
   var preview = document.querySelector('img');
@@ -229,7 +230,7 @@ function post_data(){
   }
   else {
   data['text'] = 'None'
-  }     
+  }
   data['img'] = base_img
   data['tag'] = $("#tag_select").val()
    $.ajax({
@@ -250,13 +251,13 @@ function post_data(){
     }
 
   })
-  
+
   }, false);
 
   if (file) {
     var asd = reader.readAsDataURL(file);
-   
-  
+
+
   }
   else{
 
@@ -269,7 +270,7 @@ function post_data(){
   }
   else {
   data['text'] = 'None'
-  }     
+  }
   data['img'] = 'None'
   data['tag'] = $("#tag_select").val()
    $.ajax({
@@ -293,27 +294,27 @@ function post_data(){
 
   }
 
-  
+
 
 }
 
 
         post_data();
-       
+
 
 
 /*
 
- 
+
   */
 }
-  
+
     })
 
   </script>
 
-  
-    
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
   </body>
